@@ -28,10 +28,11 @@ services:
     volumes:
       - ./config/sonarr:/config
       - /media/hdd/tv:/tv
-      - /home/qbtuser/Downloads:/downloads
+      - /media/hdd/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
+
   # emby:  
   #   container_name: emby-server  
   #   image: emby/embyserver  
@@ -69,4 +70,22 @@ services:
     devices:
       - /dev/dri:/dev/dri #optional
       #- /dev/vchiq:/dev/vchiq #optional
+    restart: unless-stopped
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - UMASK_SET=022
+      - WEBUI_PORT=8080
+    volumes:
+      - ./config/qbittorrent:/config
+      - /media/hdd/downloads:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
     restart: unless-stopped
