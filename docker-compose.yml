@@ -33,44 +33,29 @@ services:
       - 8989:8989
     restart: unless-stopped
 
-  # emby:  
-  #   container_name: emby-server  
-  #   image: emby/embyserver  
-  #   volumes:
-  #       - ./config/emby:/config  
-  #       - /media/hdd/tv:/media 
-  #   ports:   
-  #       - 8096:8096  
-  #       - 8920:8920
-  #   environment:   
-  #       - UID=1002
-  #       - GID=1002 
-  #       - TZ=America/Sao_Paulo
-  #   restart: unless-stopped  
-
- # jellyfin:
- #   image: linuxserver/jellyfin
- #   container_name: jellyfin
- #   environment:
- #     - PUID=1002
- #     - PGID=1002
- #     - TZ=America/Sao_Paulo
- #     - UMASK_SET=002 #optional
- #   volumes:
- #     - ./config/jellyfin:/config
- #     - /media/hdd/tv:/data/tvshows
- #     - /media/hdd/movies:/data/movies
- #     #- /path for transcoding:/transcode #optional
- #     #- /opt/vc/lib:/opt/vc/lib #optional
- #   ports:
- #     - 8096:8096
- #     - 8920:8920 #optional
- #     - 7359:7359/udp  
- #     - 1900:1900  
- #   devices:
- #     - /dev/dri:/dev/dri #optional
- #     #- /dev/vchiq:/dev/vchiq #optional
- #   restart: unless-stopped
+ jellyfin:
+   image: linuxserver/jellyfin
+   container_name: jellyfin
+   environment:
+     - PUID=1002
+     - PGID=1002
+     - TZ=America/Sao_Paulo
+     - UMASK_SET=002 #optional
+   volumes:
+     - ./config/jellyfin:/config
+     - /media/hdd/tv:/data/tvshows
+     - /media/hdd/movies:/data/movies
+     #- /path for transcoding:/transcode #optional
+     #- /opt/vc/lib:/opt/vc/lib #optional
+   ports:
+     - 8096:8096
+     - 8920:8920 #optional
+     - 7359:7359/udp  
+     - 1900:1900  
+   devices:
+     - /dev/dri:/dev/dri #optional
+     #- /dev/vchiq:/dev/vchiq #optional
+   restart: unless-stopped
 
   qbittorrent:
     image: linuxserver/qbittorrent
